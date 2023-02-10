@@ -1,9 +1,8 @@
 <body>
-<h2>{{$corp->corp_name}}</h2>
-{{$corp->CEO_name}}
-{{$corp->capital}}
-{{$corp->tel}}
-{{$corp->mail}}
-{{$corp->prefecture->prefecture_name}}
-<a href="./{{$corp->id}}/edit">編集</a>
+<h2>{{$post->corp_rel->corp_name}}</h2>
+{{$post->prefecture_rel->prefecture_name}}
+{{$post->content}}
+{{$post->phpto??""}}
+{{$post->post_time}}
+<a href="./{{$post->id}}/edit">編集</a>
 </body>

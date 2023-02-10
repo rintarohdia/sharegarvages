@@ -3,8 +3,7 @@
 <h2>投稿する</h2>
 <form  method="post"  action="{{ route('post.store') }}" >
   @csrf
-    所属会社<input type="text" name="corp">
-    所在地<select name="prefecture_id">
+    所在地<select name="prefecture">
   <option value="" selected>都道府県</option>
   <option value="1">北海道</option>
   <option value="2">青森県</option>

@@ -8,6 +8,7 @@ use App\Models\prefecture;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\PostRequest;
 use App\Post as pp;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -25,23 +26,28 @@ class PostController extends Controller
   }
   public function store(Request $post)
  {
-   $attributes=$request->only(["post_name","prefecture_id","CEO_name","capital","tel","mail"]);
+   $attributes=$post->only(["prefecture","content"]);
    //操作すること
-   post::create($attributes);
+   $user = Auth::id();
+   $corp=["corp" => User::find($user)->cop_id];
+   $attributes= array_merge($attributes, $corp);
+   //$attributeはphp array型に変換されているので、corpをappendすればよい。corpcontrollerにもやること
+   $inserted=post::create($attributes);
     return redirect()->route('post.index');
   }
   public function show(post $post)
  {
-    return view('post.post_show', compact("post"));
+    return view('post.show', compact("post"));
   }
   public function edit(post $post)
  {
-   return view('post.post_edit', compact('post'));
+   return view('post.edit', compact('post'));
  }
  public function update(Request $request,$id)
 {
   $update=[
-    "post_name"=>$request->post_name
+    "prefecture"=>$request->prefecture,
+    "content"=>$request->content
   ];
   post::where("id",$id)->update($update);
   return redirect()->route('post.index',$id);
