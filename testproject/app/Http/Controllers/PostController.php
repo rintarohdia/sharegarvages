@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\prefecture;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\PostRequest;
+use App\Post as pp;
 
 class PostController extends Controller
 {

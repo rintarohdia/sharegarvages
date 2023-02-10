@@ -8,6 +8,7 @@ use App\Models\prefecture;
 use Illuminate\Support\Facades\Log;
 use App\Post;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Auth;
 
 class corp_controller extends Controller
 {
@@ -26,7 +27,10 @@ class corp_controller extends Controller
   public function store(Request $request)
  {
    $attributes=$request->only(["corp_name","prefecture_id","CEO_name","capital","tel","mail"]);
-   corp::create($attributes);
+   $inserted=corp::create($attributes);
+   $id=$inserted->id;
+   $user = ["creater"=> Auth::id()];
+   corp::where("id",$id)->update($user);
     return redirect()->route('corp.index');
   }
   public function show(corp $corp)
@@ -40,7 +44,12 @@ class corp_controller extends Controller
  public function update(Request $request,$id)
 {
   $update=[
-    "corp_name"=>$request->corp_name
+    "corp_name"=>$request->corp_name,
+    "prefecture_id"=>$request->prefecture_id,
+    "CEO_name"=>$request->CEO_name,
+    "capital"=>$request->capital,
+    "tel"=>$request->tel,
+    "mail"=>$request->email
   ];
   corp::where("id",$id)->update($update);
   return redirect()->route('corp.index',$id);
