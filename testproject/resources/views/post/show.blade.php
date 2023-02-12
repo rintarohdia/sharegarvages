@@ -5,4 +5,12 @@
 {{$post->phpto??""}}
 {{$post->post_time}}
 <a href="./{{$post->id}}/edit">編集</a>
+</p>
+この投稿にreplyする。
+<form  method="post"  action="{{ route('reply.store') }}" method="POST">
+@csrf
+    <input type="hidden" name="post" value="{{$post->id}}">
+    内容<input type="text" name="content">
+  <button>登録</button>
+</form>
 </body>

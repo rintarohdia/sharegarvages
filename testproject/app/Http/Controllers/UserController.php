@@ -61,9 +61,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
+        $this->authorize('view', $user);
+        return view('users.edit', compact('user'));
     }
 
     /**
