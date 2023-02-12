@@ -1,5 +1,5 @@
 <body>
-<h2>{{$post->corp_rel->corp_name}}</h2>
+<h1>{{$post->corp_rel->corp_name}}</h1>
 {{$post->prefecture_rel->prefecture_name}}
 {{$post->content}}
 {{$post->phpto??""}}
@@ -13,4 +13,11 @@
     内容<input type="text" name="content">
   <button>登録</button>
 </form>
+
+@foreach($replys as $reply)
+<h2>{{$reply->corp_rel->corp_name}}</h2>
+{{$reply->content}}
+<a href="../reply/{{$reply->id}}/edit">編集</a>
+@endforeach
+
 </body>

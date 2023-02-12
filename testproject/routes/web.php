@@ -27,5 +27,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/users', App\Http\Controllers\UserController::class);
 Route::resource('/corp', App\Http\Controllers\corp_controller::class);
 Route::resource('/post', App\Http\Controllers\PostController::class);
-
-Route::post('/reply',[App\Http\Controllers\ReplyController::class, 'store'])->name("reply.store");
+Route::resource('/reply', App\Http\Controllers\ReplyController::class);

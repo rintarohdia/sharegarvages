@@ -13,7 +13,9 @@ class reply extends Model
   public $timestamps = True;
   const CREATED_AT = 'post_time';
   const UPDATED_AT = null;
-
+  public function corp_rel(){
+    return $this->belongsTo("App\Models\corp","corp","id");
+  }
   public function post_rel(){
     return $this->belongsTo("App\Models\post","post","id");
   }

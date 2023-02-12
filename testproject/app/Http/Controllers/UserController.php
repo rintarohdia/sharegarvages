@@ -78,6 +78,16 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user = User::find($id);
+        if ($user->id !== auth()->user()->id) {
+            return redirect()->route('home')->with('error', '権限がありません');
+        }
+        $update=[
+            "name"=>$request->name
+          ];
+          User::where("id",$id)->update($update);
+          return redirect()->route('users.show',$id);
+       
     }
 
     /**
@@ -88,6 +98,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+          // Booksテーブルから指定のIDのレコード1件を取得
+          $user = User::find($id);
+          // レコードを削除
+            $user->delete();
+          // 削除したら一覧画面にリダイレクト
+        return redirect()->route('home');
+      }
+    
 }

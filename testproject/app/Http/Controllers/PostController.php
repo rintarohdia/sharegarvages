@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\reply;
 use Illuminate\Http\Request;
 use App\Models\prefecture;
 use Illuminate\Support\Facades\Log;
@@ -37,14 +38,33 @@ class PostController extends Controller
   }
   public function show(post $post)
  {
-    return view('post.show', compact("post"));
+    $replys=reply::where("post",$post->id)->get();
+    return view('post.show', compact("post","replys"));
   }
   public function edit(post $post)
  {
+  // ログインしているユーザーの情報を取得
+  $user = Auth::user();
+  $id = $post->id;
+  // 更新するpostのcorp_idとログインユーザーのcorp_idを比較
+  $post_auth = post::find($id);
+  if ($post_auth->corp != $user->cop_id) {
+    // 不一致の場合はアクセスを拒否
+    return redirect()->route('post.index');
+  }
    return view('post.edit', compact('post'));
  }
  public function update(Request $request,$id)
 {
+  // ログインしているユーザーの情報を取得
+  $user = Auth::user();
+
+  // 更新するpostのcorp_idとログインユーザーのcorp_idを比較
+  $post = post::find($id);
+  if ($post->corp != $user->cop_id) {
+    // 不一致の場合はアクセスを拒否
+    return redirect()->route('post.index');
+  }
   $update=[
     "prefecture"=>$request->prefecture,
     "content"=>$request->content
@@ -57,6 +77,15 @@ public function __construct(){
   }
 public function destroy($id)
   {
+    // ログインしているユーザーの情報を取得
+  $user = Auth::user();
+
+  // 更新するpostのcorp_idとログインユーザーのcorp_idを比較
+  $post = post::find($id);
+  if ($post->corp != $user->cop_id) {
+    // 不一致の場合はアクセスを拒否
+    return redirect()->route('post.index');
+  }
           // Booksテーブルから指定のIDのレコード1件を取得
         $post = post::find($id);
           // レコードを削除
