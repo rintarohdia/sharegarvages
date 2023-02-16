@@ -31,7 +31,7 @@ class corp_controller extends Controller
    $id=$inserted->id;
    $user = ["creater"=> Auth::id()];
    corp::where("id",$id)->update($user);
-    return redirect()->route('corp.index');
+    return redirect()->route('corp.show',$inserted);
   }
   public function show(corp $corp)
  {
@@ -52,7 +52,7 @@ class corp_controller extends Controller
     "mail"=>$request->email
   ];
   corp::where("id",$id)->update($update);
-  return redirect()->route('corp.index',$id);
+  return redirect()->route('corp.show',$id);
 }
 public function __construct(){
     $this->middleware('auth');

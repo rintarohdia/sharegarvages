@@ -19,5 +19,7 @@
 {{$reply->content}}
 <a href="../reply/{{$reply->id}}/edit">編集</a>
 @endforeach
+</p>
+<a href="./">もどる</a>
 
 </body>
