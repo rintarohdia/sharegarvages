@@ -3,6 +3,5 @@
   @method("PUT")
   <input type="text" name="name" value="{{$user->name}}">
     <button>登録</button>
-  </form>
 </form>
 

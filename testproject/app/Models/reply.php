@@ -9,8 +9,8 @@ class reply extends Model
 {
   protected $table = 'reply';
   use HasFactory;
-  protected $guarded=["id"];
   public $timestamps = True;
+  protected $guarded = [];
   const CREATED_AT = 'post_time';
   const UPDATED_AT = null;
   public function corp_rel(){

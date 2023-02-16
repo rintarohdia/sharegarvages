@@ -9,8 +9,8 @@ class post extends Model
 {
   use HasFactory;
   protected $table = 'post';
-  protected $guarded=["id"];
   public $timestamps = True;
+  protected $guarded = [];
   const CREATED_AT = 'post_time';
   const UPDATED_AT = null;
   #name of function and name of column must be different, because laravel can not tell a from b.

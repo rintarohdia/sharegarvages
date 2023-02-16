@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class tag_relay extends Model
 {
-  rotected $table = 'tag_relay';
+  protected $table = 'tag_relay';
+  protected $guarded = [];
+
     use HasFactory;
 }
