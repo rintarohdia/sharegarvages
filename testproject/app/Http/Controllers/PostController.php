@@ -32,13 +32,6 @@ class PostController extends Controller
    $user = Auth::id();
    $corp=["corp" => User::find($user)->cop_id];
    $attributes= array_merge($attributes, $corp);
-   //画像ファイル保存
-   $image=$post->file("photo");
-   if(isset($image)){
-    $path=$image->store("storage");
-    $file=["photo"=>$path];
-    $attributes= array_merge($attributes, $file);
-   }
    //$attributeはphp array型に変換されているので、corpをappendすればよい。corpcontrollerにもやること
    $inserted=post::create($attributes);
     return redirect()->route('post.index');
