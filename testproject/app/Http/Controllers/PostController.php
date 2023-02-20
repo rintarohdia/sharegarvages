@@ -30,6 +30,8 @@ class PostController extends Controller
    $attributes=$request->only(["prefecture","content"]);
    //操作すること
    $user = Auth::id();
+   $photo_exist=["photo_exist"=>is_null($request->photo)];
+   array_merge($attributes, $photo_exist);
    $corp=["corp" => User::find($user)->cop_id];
    $inserted=post::create(array_merge($attributes, $corp));
    //Id名でやりたいので先に保存する。

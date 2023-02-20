@@ -62,6 +62,9 @@
 {{$post->content}}
 </p>
 {{$post->prefecture_rel->prefecture_name}}
+@if($post->photo_exist)
+  <img src="{{ asset("storage/".(string)$post->id.".jpg") }}">
+@endif
 {{$post->post_time}}
 <a href="./post/{{$post->id}}">詳細</a>
 @endforeach
