@@ -1,7 +1,7 @@
 <body>
 <h1>post</h1>
 <h2>投稿する</h2>
-<form  method="post"  action="{{ route('post.store') }}" >
+<form  method="post"  action="{{ route('post.store') }}" enctype="multipart/form-data">
   @csrf
     所在地<select name="prefecture">
   <option value="" selected>都道府県</option>
@@ -54,6 +54,7 @@
   <option value="47">沖縄県</option>
   </select>
     投稿内容<input type="text" name="content">
+    画像投稿<input type="file" name="photo">
     <button>登録</button>
   </form>
 @foreach($posts as $post)

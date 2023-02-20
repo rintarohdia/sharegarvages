@@ -27,10 +27,9 @@ class corp_controller extends Controller
   public function store(Request $request)
  {
    $attributes=$request->only(["corp_name","prefecture_id","CEO_name","capital","tel","mail"]);
-   $inserted=corp::create($attributes);
-   $id=$inserted->id;
    $user = ["creater"=> Auth::id()];
-   corp::where("id",$id)->update($user);
+   $attributes= array_merge($attributes, $user);
+   $inserted=corp::create($attributes);
     return redirect()->route('corp.show',$inserted);
   }
   public function show(corp $corp)

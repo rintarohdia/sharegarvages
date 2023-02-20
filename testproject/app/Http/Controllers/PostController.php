@@ -25,15 +25,17 @@ class PostController extends Controller
 
     return view('post.post');
   }
-  public function store(Request $post)
+  public function store(Request $request)
  {
-   $attributes=$post->only(["prefecture","content"]);
+   $attributes=$request->only(["prefecture","content"]);
    //操作すること
    $user = Auth::id();
    $corp=["corp" => User::find($user)->cop_id];
-   $attributes= array_merge($attributes, $corp);
+   $inserted=post::create(array_merge($attributes, $corp));
+   //Id名でやりたいので先に保存する。
    //$attributeはphp array型に変換されているので、corpをappendすればよい。corpcontrollerにもやること
-   $inserted=post::create($attributes);
+   //画像を保存する。名前はidで管理する。
+   $request->file("photo")->storeAs("public/",(string)$inserted->id.".jpg");
     return redirect()->route('post.index');
   }
   public function show(post $post)
