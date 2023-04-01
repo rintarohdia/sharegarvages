@@ -52,8 +52,6 @@
   <option value="47">沖縄県</option>
   </select>
     投稿内容<input type="text" name="content" value="{{$post->content}}">
-    <button>登録</button>
-  </form>
   <button>変更</button>
 </form>
 <form action="{{ route('post.destroy', $post->id) }}" method="POST">

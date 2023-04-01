@@ -37,8 +37,10 @@ class PostController extends Controller
    //Id名でやりたいので先に保存する。
    //$attributeはphp array型に変換されているので、corpをappendすればよい。corpcontrollerにもやること
    //画像を保存する。名前はidで管理する。
-   $request->file("photo")->storeAs("public/",(string)$inserted->id.".jpg");
-    return redirect()->route('post.index');
+   if(!is_null($request->photo)){
+    $request->file("photo")->storeAs("public/",(string)$inserted->id.".jpg");
+   }
+    return redirect()->route('post.search');
   }
   public function show(post $post)
  {
@@ -54,7 +56,7 @@ class PostController extends Controller
   $post_auth = post::find($id);
   if ($post_auth->corp != $user->cop_id) {
     // 不一致の場合はアクセスを拒否
-    return redirect()->route('post.index');
+    return redirect()->route('post.search');
   }
    return view('post.edit', compact('post'));
  }
@@ -67,14 +69,14 @@ class PostController extends Controller
   $post = post::find($id);
   if ($post->corp != $user->cop_id) {
     // 不一致の場合はアクセスを拒否
-    return redirect()->route('post.index');
+    return redirect()->route('post.search');
   }
   $update=[
     "prefecture"=>$request->prefecture,
     "content"=>$request->content
   ];
   post::where("id",$id)->update($update);
-  return redirect()->route('post.index',$id);
+  return redirect()->route('post.search',$id);
 }
 public function __construct(){
     $this->middleware('auth');
@@ -88,14 +90,14 @@ public function destroy($id)
   $post = post::find($id);
   if ($post->corp != $user->cop_id) {
     // 不一致の場合はアクセスを拒否
-    return redirect()->route('post.index');
+    return redirect()->route('post.search');
   }
           // Booksテーブルから指定のIDのレコード1件を取得
         $post = post::find($id);
           // レコードを削除
         $post->delete();
           // 削除したら一覧画面にリダイレクト
-        return redirect()->route('post.index');
+        return redirect()->route('post.search');
       }
   // Query Builderを用いて、contentに検索ワードが含まれる投稿を取得
 public function search(Request $request)

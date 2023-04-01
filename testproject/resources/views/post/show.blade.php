@@ -20,6 +20,6 @@
 <a href="../reply/{{$reply->id}}/edit">編集</a>
 @endforeach
 </p>
-<a href="./">もどる</a>
+<a href="../search">もどる</a>
 
 </body>

@@ -2,8 +2,6 @@
   @csrf
   @method("PUT")
     投稿内容<input type="text" name="content" value="{{$reply->content}}">
-    <button>登録</button>
-  </form>
   <button>変更</button>
 </form>
 <form action="{{ route('reply.destroy', $reply->id) }}" method="POST">

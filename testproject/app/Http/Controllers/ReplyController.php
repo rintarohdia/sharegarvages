@@ -26,7 +26,7 @@ class ReplyController extends Controller
    $attributes= array_merge($attributes, $corp);
    //$attributeはphp array型に変換されているので、corpをappendすればよい。corpcontrollerにもやること
    $inserted=reply::create($attributes);
-    return redirect()->route('post.show',$id);
+    return redirect()->route('post.search');
   }
 
   public function edit(reply $reply)
@@ -48,13 +48,13 @@ class ReplyController extends Controller
   $reply = reply::find($id);
   if ($reply->corp != $user->cop_id) {
     // 不一致の場合はアクセスを拒否
-    return redirect()->route('post.index');
+    return redirect()->route('post.search');
   }
   $update=[
     "content"=>$request->content
   ];
   reply::where("id",$id)->update($update);
-  return redirect()->route('post.show',$id);
+  return redirect()->route('post.search');
 }
 public function __construct(){
     $this->middleware('auth');
@@ -65,13 +65,13 @@ public function destroy($id)
     $reply = reply::find($id);
   if ($reply->corp != $user->cop_id) {
     // 不一致の場合はアクセスを拒否
-    return redirect()->route('post.index');
+    return redirect()->route('post.search');
   }
           // Booksテーブルから指定のIDのレコード1件を取得
         $reply = reply::find($id);
           // レコードを削除
         $reply->delete();
           // 削除したら一覧画面にリダイレクト
-        return redirect()->route('post.index');
+        return redirect()->route('post.search');
       }
 }
