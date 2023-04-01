@@ -36,3 +36,4 @@ Route::get('/corp/{corp}/controlpanel', [App\Http\Controllers\CorpApplyControlle
 Route::put('/corp/{id}/admit', [App\Http\Controllers\CorpApplyController::class, 'authorize_apply']);
 Route::delete('/corp/{id}/admit', [App\Http\Controllers\CorpApplyController::class, 'reject_apply']);
 Route::delete('/corp/{id}/releas', [App\Http\Controllers\CorpApplyController::class, 'releas']);
+Route::get('/search', [App\Http\Controllers\PostController::class, 'search'])->name('post.search');

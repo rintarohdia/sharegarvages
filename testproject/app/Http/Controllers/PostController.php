@@ -97,4 +97,14 @@ public function destroy($id)
           // 削除したら一覧画面にリダイレクト
         return redirect()->route('post.index');
       }
+  // Query Builderを用いて、contentに検索ワードが含まれる投稿を取得
+public function search(Request $request)
+  {
+    // 検索ワードを取得
+    $search = $request->input('search');
+    $posts = post::where('content', 'like', '%' . $search . '%')
+    ->get();
+    // 取得した値をビュー「post.index」に渡す
+    return view('post.search', compact('posts', 'search'));
+  }
 }
