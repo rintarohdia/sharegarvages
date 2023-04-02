@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <h1>post</h1>
 <h2>投稿する</h2>
 <form  method="post"  action="{{ route('post.store') }}" enctype="multipart/form-data">
@@ -79,3 +81,4 @@
 @else
   <p>投稿がありません。</p>
 @endif
+@endsection
